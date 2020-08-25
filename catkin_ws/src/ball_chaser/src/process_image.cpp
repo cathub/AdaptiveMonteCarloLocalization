@@ -25,10 +25,14 @@ void process_image_callback(const sensor_msgs::Image img)
 {
 
     int white_pixel = 255;
-    int left = img.step * 0.4;
-    int right = img.step * 0.6;
+    int left = img.step * 0.35;
+    int right = img.step * 0.65;
     for (int i = 0; i < img.height * img.step; i++) {
-        if (img.data[i] == white_pixel) {
+        if (i % 3 == 0 &&
+            img.data[i] == white_pixel &&
+            img.data[i+1] == white_pixel &&
+            img.data[i+2] == white_pixel) {
+          
             int t = i % img.step;
             if(t <= left) {
               drive_robot(0.0, 0.5);
